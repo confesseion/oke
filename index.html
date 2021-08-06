@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <div>
+        BTT
+        <input type="text" v-model="btt">
+      </div>
+      <div>
+        MDT
+        <input type="text" v-model="mdt">
+      </div>
+      <div>
+        SHIB
+        <input type="text" v-model="shib">
+      </div>      
+      <div>{{result}}</div>
+      <div>
+        总额
+        <input type="text" v-model="amount">
+      </div>
+      <div>
+        BTT:{{buyBtt}}
+      </div>
+      <div>
+        MDT:{{buyMdt}}
+      </div>
+      <div>
+        SHIB:{{buyShib}}
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="./big.js">
+      
+    </script>
+    <script>
+        BigNumber.config({ EXPONENTIAL_AT: 1e+9 })
+        var app = new Vue({
+            el: '#app',
+            data: {
+              btt: '0.0028805',
+              mdt:'0.0311',
+              shib:'0.00000775',
+              bttNum:'95743.5737',
+              mdtNum:'11093.2476',
+              shibNum:'14652956',
+              amount:'991'
+            },
+            computed:{
+              result(){
+                return (new BigNumber(this.btt).multipliedBy(this.bttNum))
+                .plus(new BigNumber(this.mdt).multipliedBy(this.mdtNum))
+                .plus(new BigNumber(this.shib).multipliedBy(this.shibNum))
+                .dividedBy(3)
+                .multipliedBy(4)
+                .plus(48.41)
+                .toFormat(2)
+              },
+              buyBtt(){
+                return new BigNumber(this.amount)
+                        . dividedBy(734)
+                        .multipliedBy(276)
+                        .toFormat(2)
+              },
+              buyMdt(){
+                return new BigNumber(this.amount)
+                        . dividedBy(734)
+                        .multipliedBy(345)
+                        .toFormat(2)
+              },
+              buyShib(){
+                return new BigNumber(this.amount)
+                        . dividedBy(734)
+                        .multipliedBy(113)
+                        .toFormat(2)
+              }
+            },
+            method:{
+              
+            }
+        })
+    </script>
+</body>
+</html>
